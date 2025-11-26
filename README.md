@@ -65,11 +65,13 @@ python test_summary.py
 abstractive-summarizer/
 │
 ├── src/
-│ └── summarizer.py # 요약 모델 로직
+│   └── summarizer.py        # 요약 모델 로직
 │
-├── test_summary.py # 데모 실행 파일
-├── requirements.txt
-└── README.md
+├── test_summary.py          # 데모 실행 파일
+│
+├── requirements.txt         # 필요한 패키지 목록
+│
+└── README.md                # 프로젝트 설명 문서
 
 ---
 

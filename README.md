@@ -62,16 +62,15 @@ python test_summary.py
 ---
 
 ## 5. 디렉토리 구조 (Directory Layout)
+
+```
 abstractive-summarizer/
-│
 ├── src/
-│   └── summarizer.py   # 요약 모델 로직
-│
-├── test_summary.py     # 데모 실행 파일
-│
-├── requirements.txt    # 필요한 패키지 목록
-│
-└── README.md           # 프로젝트 설명 문서
+│   └── summarizer.py      # 요약 모델 로직
+├── test_summary.py        # 데모 실행 파일
+├── requirements.txt       # 필요한 패키지 목록
+└── README.md              # 프로젝트 설명 문서
+```
 
 ---
 

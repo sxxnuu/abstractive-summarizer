@@ -28,3 +28,20 @@ summary = summarizer(
 
 print("\n📌 요약 결과:\n")
 print(summary)
+def summarize_text(text: str, max_length: int = 120, min_length: int = 30) -> str:
+    """
+    app.py에서 호출하려고 만든 '요약 함수' 이름(인터페이스)입니다.
+    내부는 기존 summarize(또는 summarizer)를 호출해서 문자열만 반환합니다.
+    """
+
+    # 1) 만약 이미 summarize() 함수가 있다면 그걸 사용
+    if "summarize" in globals() and callable(globals()["summarize"]):
+        return globals()["summarize"](text, max_length=max_length, min_length=min_length)
+
+    # 2) 혹시 summarize()가 없고 pipeline 객체 이름이 summarizer라면 그걸 사용
+    if "summarizer" in globals() and callable(globals()["summarizer"]):
+        out = globals()["summarizer"](text, max_length=max_length, min_length=min_length)
+        return out[0]["summary_text"]
+
+    # 3) 둘 다 없으면 에러 (src/summarizer.py 구조가 다른 경우)
+    raise RuntimeError("src/summarizer.py 안에 summarize() 또는 summarizer(pipeline)가 없습니다.")

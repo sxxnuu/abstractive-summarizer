@@ -1,16 +1,20 @@
-from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+from transformers import pipeline
 
-class AbstractiveSummarizer:
-    def __init__(self, model_name="gogamza/kobart-summarizer"):
-        self.tokenizer = AutoTokenizer.from_pretrained(model_name)
-        self.model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
+# HuggingFace 요약 파이프라인 로드
+# (처음 실행 시 모델 다운로드됨)
+summarizer = pipeline(
+    "summarization",
+    model="facebook/bart-large-cnn"
+)
 
-    def summarize(self, text, max_len=128):
-        inputs = self.tokenizer(text, return_tensors="pt", truncation=True)
-        summary_ids = self.model.generate(
-            inputs["input_ids"],
-            max_length=max_len,
-            num_beams=4,
-            early_stopping=True
-        )
-        return self.tokenizer.decode(summary_ids[0], skip_special_tokens=True)
+def summarize_text(text: str) -> str:
+    """
+    입력된 긴 문장을 요약해서 문자열로 반환
+    """
+    result = summarizer(
+        text,
+        max_length=130,
+        min_length=30,
+        do_sample=False
+    )
+    return result[0]["summary_text"]
